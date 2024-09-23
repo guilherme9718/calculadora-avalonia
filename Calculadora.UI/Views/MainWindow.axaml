@@ -3,12 +3,13 @@
         xmlns:vm="using:Calculadora.UI.ViewModels"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" d:DesignWidth="200" d:DesignHeight="250"
+        mc:Ignorable="d"
         x:Class="Calculadora.UI.Views.MainWindow"
         x:DataType="vm:MainWindowViewModel"
         Icon="/Assets/avalonia-logo.ico"
         Title="Calculadora"
-        SizeToContent="WidthAndHeight">
+        SizeToContent="WidthAndHeight"
+        CanResize="False">
 
     <Design.DataContext>
         <!-- This only sets the DataContext for the previewer in an IDE,
@@ -24,6 +25,8 @@
             <Setter Property="Height" Value="45" />
             <Setter Property="HorizontalContentAlignment" Value="Center" />
             <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="Focusable" Value="false" />
+            <Setter Property="Margin" Value="4" />
         </Style>
         <Style Selector="Button.equal">
             <!-- <Setter Property = "HorizontalAlign" Value = "Center" /> -->
@@ -32,7 +35,7 @@
         </Style>
         <Style Selector="TextBox.result">
             <Setter Property="FontSize" Value="18" />
-            <Setter Property="Width" Value="150" />
+            <Setter Property="Width" Value="175" />
             <Setter Property="Height" Value="45" />
             <Setter Property="FocusAdorner" Value="{x:Null}" />
         </Style>
@@ -66,7 +69,7 @@
             <RowDefinition Height="Auto"></RowDefinition>
         </Grid.RowDefinitions>
         <TextBox x:Name="Result" Classes="result" AcceptsReturn="false" BorderThickness="0" FontSize="24"
-                 Width="180"
+                 Width="200"
                  HorizontalAlignment="Left"
                  Text="{Binding Expression}"
                  Padding="10" Margin="10" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4">
