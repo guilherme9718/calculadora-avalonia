@@ -1,0 +1,120 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:Calculadora.UI.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="200" d:DesignHeight="250"
+        x:Class="Calculadora.UI.Views.MainWindow"
+        x:DataType="vm:MainWindowViewModel"
+        Icon="/Assets/avalonia-logo.ico"
+        Title="Calculadora"
+        SizeToContent="WidthAndHeight">
+
+    <Design.DataContext>
+        <!-- This only sets the DataContext for the previewer in an IDE,
+             to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
+        <vm:MainWindowViewModel />
+    </Design.DataContext>
+    <Window.Styles>
+        <Style Selector="Button.number">
+            <Setter Property="FontSize" Value="24" />
+            <Setter Property="FontWeight" Value="Bold" />
+            <Setter Property="CornerRadius" Value="10" />
+            <Setter Property="Width" Value="45" />
+            <Setter Property="Height" Value="45" />
+            <Setter Property="HorizontalContentAlignment" Value="Center" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+        </Style>
+        <Style Selector="Button.equal">
+            <!-- <Setter Property = "HorizontalAlign" Value = "Center" /> -->
+            <Setter Property="Width" Value="100" />
+            <Setter Property="Height" Value="45" />
+        </Style>
+        <Style Selector="TextBox.result">
+            <Setter Property="FontSize" Value="18" />
+            <Setter Property="Width" Value="150" />
+            <Setter Property="Height" Value="45" />
+            <Setter Property="FocusAdorner" Value="{x:Null}" />
+        </Style>
+        <Style Selector="TextBox:focus">
+            <Setter Property="Foreground" Value="Black" />
+
+            <Style Selector="^ /template/ TextBlock#PART_Watermark">
+                <Setter Property="Foreground" Value="Gray" />
+            </Style>
+
+            <Style Selector="^ /template/ Border#PART_BorderElement">
+                <Setter Property="Background" Value="Gray" />
+                <Setter Property="BorderBrush" Value="Gray" />
+                <Setter Property="BorderThickness" Value="0" />
+            </Style>
+        </Style>
+    </Window.Styles>
+    <Grid Margin="4">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="50"></ColumnDefinition>
+            <ColumnDefinition Width="50"></ColumnDefinition>
+            <ColumnDefinition Width="50"></ColumnDefinition>
+            <ColumnDefinition Width="50"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        <TextBox x:Name="Result" Classes="result" AcceptsReturn="false" BorderThickness="0" FontSize="24"
+                 Width="180"
+                 HorizontalAlignment="Left"
+                 Text="{Binding Expression}"
+                 Padding="10" Margin="10" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4">
+            <TextBox.Resources>
+                <SolidColorBrush x:Key="MaterialTextBoxBorderBrush" Color="Gainsboro" />
+                <SolidColorBrush x:Key="MaterialPrimaryMidBrush" Color="Gainsboro" />
+            </TextBox.Resources>
+
+        </TextBox>
+        <Button Command="{Binding PrintCalculatorCommand}" CommandParameter="0" Classes="number" Content="0"
+                Grid.Row="1" Grid.Column="0" />
+        <Button Command="{Binding BackCommand}" Classes="number" Content="←" Grid.Row="1" Grid.Column="1" />
+        <Button Command="{Binding PrintCalculatorCommand}" CommandParameter="(" Classes="number" Content="("
+                Grid.Row="1" Grid.Column="2" />
+        <Button Command="{Binding PrintCalculatorCommand}" CommandParameter=")" Classes="number" Content=")"
+                Grid.Row="1" Grid.Column="3" />
+
+        <Button Command="{Binding PrintCalculatorCommand}" CommandParameter="1" Classes="number" Content="1"
+                Grid.Row="2" Grid.Column="0" />
+        <Button Command="{Binding PrintCalculatorCommand}" CommandParameter="2" Classes="number" Content="2"
+                Grid.Row="2" Grid.Column="1" />
+        <Button Command="{Binding PrintCalculatorCommand}" CommandParameter="3" Classes="number" Content="3"
+                Grid.Row="2" Grid.Column="2" />
+        <Button Command="{Binding PrintCalculatorCommand}" CommandParameter="4" Classes="number" Content="4"
+                Grid.Row="3" Grid.Column="0" />
+        <Button Command="{Binding PrintCalculatorCommand}" CommandParameter="5" Classes="number" Content="5"
+                Grid.Row="3" Grid.Column="1" />
+        <Button Command="{Binding PrintCalculatorCommand}" CommandParameter="6" Classes="number" Content="6"
+                Grid.Row="3" Grid.Column="2" />
+        <Button Command="{Binding PrintCalculatorCommand}" CommandParameter="7" Classes="number" Content="7"
+                Grid.Row="4" Grid.Column="0" />
+        <Button Command="{Binding PrintCalculatorCommand}" CommandParameter="8" Classes="number" Content="8"
+                Grid.Row="4" Grid.Column="1" />
+        <Button Command="{Binding PrintCalculatorCommand}" CommandParameter="9" Classes="number" Content="9"
+                Grid.Row="4" Grid.Column="2" />
+        <Button Command="{Binding PrintCalculatorCommand}" CommandParameter="+" Classes="number" Content="+"
+                Grid.Row="2" Grid.Column="3" />
+        <Button Command="{Binding PrintCalculatorCommand}" CommandParameter="-" Classes="number" Content="-"
+                Grid.Row="3" Grid.Column="3" />
+        <Button Command="{Binding PrintCalculatorCommand}" CommandParameter="*" Classes="number" Content="*"
+                Grid.Row="4" Grid.Column="3" />
+        <Button Command="{Binding PrintCalculatorCommand}" CommandParameter="/" Classes="number" Content="/"
+                Grid.Row="5" Grid.Column="3" />
+        <Button Command="{Binding PrintCalculatorCommand}" CommandParameter="^" Classes="number" Content="^"
+                Grid.Row="5" Grid.Column="2" />
+        <Button Command="{Binding CalculateCommand}" Classes="number equal" Grid.Row="5" Grid.ColumnSpan="2"
+                Grid.Column="0" HotKey="Enter">
+            <TextBlock Text="=" HorizontalAlignment="Center" />
+        </Button>
+    </Grid>
+</Window>
