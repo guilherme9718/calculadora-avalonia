@@ -16,12 +16,13 @@ public class CalculateExpressionResponse
 
 public class CalculateExpressionHandler : IRequestHandler<CalculateExpressionRequest, CalculateExpressionResponse>
 {
-    CalculateExpressionValidator _validator = new CalculateExpressionValidator();
+    CalculateExpressionValidator _validator;
     Calculator _calculator;
 
-    public CalculateExpressionHandler(Calculator calculator)
+    public CalculateExpressionHandler(Calculator calculator, CalculateExpressionValidator validator)
     {
         _calculator = calculator;
+        _validator = validator;
     }
 
     public Task<CalculateExpressionResponse> Handle(CalculateExpressionRequest request, CancellationToken cancellationToken)
@@ -34,9 +35,8 @@ public class CalculateExpressionHandler : IRequestHandler<CalculateExpressionReq
 
 public class CalculateExpressionValidator : AbstractValidator<CalculateExpressionRequest>
 {
-    public CalculateExpressionValidator()
+    public CalculateExpressionValidator(ExpressionValidator validator)
     {
-        ExpressionValidator validator = new ExpressionValidator();
         RuleFor(x => x.Expression)
             .Must(x => validator.HasValidParentheses(x))
             .WithMessage("Parênteses inválidos")

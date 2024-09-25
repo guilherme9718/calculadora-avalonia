@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
@@ -51,7 +52,9 @@ public partial class MainWindowViewModel : ReactiveObject
     {
         try
         {
+            Stopwatch watch = Stopwatch.StartNew();
             var response = await _mediator.Send(new CalculateExpressionRequest() {Expression = Expression});
+            watch.Stop();
             Expression = response.Result.ToString(CultureInfo.InvariantCulture);
         }
         catch (ValidationException ex)

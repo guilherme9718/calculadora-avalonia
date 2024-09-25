@@ -6,11 +6,12 @@ namespace Calculadora.Domain;
 
 public class ExpressionValidator
 {
-    private ExpressionStringSplitter _splitter = new();
+    private ExpressionStringSplitter _splitter;
     private HashSet<string> _validCharacters = ["(", ")", " "];
 
-    public ExpressionValidator()
+    public ExpressionValidator(ExpressionStringSplitter splitter)
     {
+        _splitter = splitter;
         foreach (var character in Operator.OperatorDict.Keys)
             _validCharacters.Add(character);
     }

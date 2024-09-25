@@ -9,8 +9,14 @@ namespace Calculadora.Domain
 {
     public partial class ExpressionFactory
     {
-        private ExpressionStringSplitter _splitter = new();
-        private ExpressionPostfixBuilder _postfixBuilder = new();
+        private ExpressionStringSplitter _splitter;
+        private ExpressionPostfixBuilder _postfixBuilder;
+
+        public ExpressionFactory(ExpressionStringSplitter splitter, ExpressionPostfixBuilder postfixBuilder)
+        {
+            _splitter = splitter;
+            _postfixBuilder = postfixBuilder;
+        }
 
         public MathExpression BuildExpression(string expr)
         {

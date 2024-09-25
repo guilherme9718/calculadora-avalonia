@@ -7,10 +7,14 @@ namespace Calculadora.Domain
 {
     public class Calculator
     {
+        private readonly ExpressionFactory _factory;
+        public Calculator(ExpressionFactory factory)
+        {
+            _factory = factory;
+        }
         public double Calculate(string expression) 
         {
-            var fac = new ExpressionFactory();
-            var expr = fac.BuildExpression(expression);
+            var expr = _factory.BuildExpression(expression);
             return expr.Calculate();
         }
     }

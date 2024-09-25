@@ -9,7 +9,7 @@ namespace Calculadora.Domain;
 public partial class ExpressionStringSplitter
 {
     
-    [GeneratedRegex("(((^[-]?)|((?<=\\()[-]?))?[0-9]*[.]?[0-9]+)")]
+    [GeneratedRegex(@"(((^[-]?)|((?<=[\(\-\+\*\/\^])[-]?))?[0-9]*[.]?[0-9]+)")]
     private static partial Regex LiteralRegex();
     
     [GeneratedRegex(@"(%lf)|([\+\-\*\/\^(\)])")]
@@ -47,13 +47,15 @@ public partial class ExpressionStringSplitter
             }
             else if(token == "(")
             {
-                if (i > 0 && split[i-1] == "%lf")
+                if (i > 0 && (split[i-1] == "%lf" || split[i-1] == ")"))
                     yield return new Multiplication();
                 yield return new OpenParenthesis();
             }
             else if(token == ")") 
             {
                 yield return new CloseParenthesis();
+                if (i < split.Count-1 && split[i+1] == "%lf")
+                    yield return new Multiplication();
             }
         }
     }
